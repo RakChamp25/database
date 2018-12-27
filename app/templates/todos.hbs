@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-md-4">
+        {{#link-to 'todos.new' class='btn btn-success'}}
+            Create todo
+        {{/link-to}}
+        {{outlet}}
+    </div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12">
+                <form class="form-inline">
+                  <div class="form-group">
+                      {{input type="text" class="form-control" value=filter id="search" placeholder="Search todos.."}}
+                  </div>  
+                </form>
+                
+            </div>
+        </div>
+        <br>
+        {{#if filter}}
+        {{#each filteredTodos as |todo|}}
+            <div {{action 'setNames'}} class="card card-block bg-faded">
+                <h4>{{#link-to 'todos.edit' todo}}{{todo.title}}{{/link-to}}</h4>
+                 <div>{{todo.body}}<span class="badge badge-primary float-right">{{moment-from-now todo.date}}</span></div>
+                
+            </div>
+            <br>
+        {{/each}}
+        {{else}}
+        {{#each sortedTodos as |todo|}}
+            <div {{action 'setNames' todo}}  class="card card-block bg-faded">
+                <h4>{{#link-to 'todos.edit' todo}}{{todo.title}}{{/link-to}}</h4>
+                 <div>{{todo.body}}<span class="badge badge-primary float-right">{{moment-from-now todo.date}}</span></div>
+                
+            </div>
+            <br>
+             {{/each}}
+        {{/if}}
+    </div>
+</div>
